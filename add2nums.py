@@ -1,0 +1,159 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.ref=None
+
+class LinkedList:
+    def __init__(self,values=None):
+        self.head=None
+        
+
+        if values is not None:
+            if isinstance(values, (list, tuple, set)):
+                for value in values:
+                    self.insert_at_end(value)
+            else:
+                self.insert_at_end(values)
+
+    def insert_at_start(self,data):
+        new_node=Node(data)
+        if self.head is None:
+            self.head=new_node
+        else:
+            new_node.ref=self.head
+            self.head=new_node
+
+    def insert_at_end(self,data):
+        new_node=Node(data)
+        if self.head is None:
+            self.head=new_node
+        else:
+            current=self.head
+            while current.ref is not None:
+                current=current.ref
+            current.ref=new_node  
+     
+    def insert_after(self,key,data):
+        new_node=Node(data)
+
+        current=self.head
+        while current is not None:
+            if current.data==key:
+                new_node.ref=current.ref
+                current.ref=new_node
+                break
+            current=current.ref
+
+    def insert_before(self,key,data):
+        new_node=Node(data)
+        
+
+        current=self.head
+        while current.ref is not None:
+            if current.ref.data==key:
+                new_node.ref=current.ref
+                current.ref=new_node
+                break
+            current=current.ref
+
+    def print_llist(self):
+        if self.head is None:
+            print('Linked List is empty')
+
+        else:
+            current=self.head
+            while current is not None:
+                print(current.data,end=' ')
+                current=current.ref
+            print()
+
+    def remove_at_start(self):
+        if self.head is None:
+            return 'List is empty'
+        current=self.head
+        self.head=current.ref
+        del current
+
+    def remove_at_end(self):
+        if self.head is None:
+            return
+        current=self.head
+        current1=self.head
+        while current.ref is not None:
+            current1=current
+            current=current.ref
+        current1.ref=None
+
+        del current
+
+    def remove_before(self,key):
+        if self.head is None:
+            return
+        current =self.head
+        current1=self.head
+        while current is not None:
+            if current.ref.data==key:
+                del current
+                break
+            current1=current
+            current=current.ref
+
+    def remove_after(self, key):
+        if self.head is None:
+            print('List is empty')
+            return
+        temp = self.head
+        temp2 = self.head
+        while temp.ref is not None:
+            if temp.data == key:
+                temp.ref = temp2.ref
+                del temp2
+                return
+            temp = temp.ref
+            temp2 = temp.ref
+
+    def count(self):
+        current=self.head
+        count=0
+        while current is not None:
+            count+=1
+            current=current.ref
+        return count
+             
+
+   
+
+    
+           
+
+
+
+        
+def main():
+    l1=LinkedList([1,2,3,4,5])
+    l2=LinkedList([6,7,8,9,9,10])
+    l3=LinkedList()
+    
+   
+    l1.print_llist()
+    # l2.print_llist()
+    l1.reverse_llist()
+    l1.print_llist()
+
+    # l1.remove_at_end()
+    # l1.remove_at_start()
+    # l2.remove_after(7)
+    # l2.remove_duplicates()
+    # l1.removeKthnode(6)
+    # l1.print_llist()
+    # l2.print_llist()
+    # l3.combine(l1,l2)
+    # l3.print_llist()
+
+
+
+
+    
+
+
+main()
